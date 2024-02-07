@@ -8,18 +8,11 @@ builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseRouting();
+app.UseEndpoints(endpoints => endpoints.MapControllers());
 app.UseHttpsRedirection();
 
 PrepDb.PrepPopulation(app);
